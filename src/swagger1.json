@@ -1,0 +1,195 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sample API",
+    "description": "A sample API that demonstrates how to use Flask-SwaggerUI.",
+    "version": "1.0"
+  },
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/produtos": {
+      "get": {
+        "summary": "Get a list of produtos",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id_produto": {
+                    "type": "integer"
+                  },
+                  "nome_prod": {
+                    "type": "string"
+                  },
+                  "descproduto": {
+                    "type": "string"
+                  },
+                  "valorproduto": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new produto",
+        "parameters": [
+          {
+            "name": "produto",
+            "in": "body",
+            "description": "Product data to create",
+            "schema": {
+              "$ref": "#/definitions/ProdutoInput"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/produtos/{id_produto}": {
+      "get": {
+        "summary": "Get details of a product by ID",
+        "parameters": [
+          {
+            "name": "id_produto",
+            "in": "path",
+            "description": "ID of the product to retrieve",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Produto"
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a product by ID",
+        "parameters": [
+          {
+            "name": "id_produto",
+            "in": "path",
+            "description": "ID of the product to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "produto",
+            "in": "body",
+            "description": "Updated product data",
+            "schema": {
+              "$ref": "#/definitions/ProdutoInput"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product updated successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a product by ID",
+        "parameters": [
+          {
+            "name": "id_produto",
+            "in": "path",
+            "description": "ID of the product to delete",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Produto": {
+      "type": "object",
+      "properties": {
+        "id_produto": {
+          "type": "integer"
+        },
+        "nome_prod": {
+          "type": "string"
+        },
+        "descproduto": {
+          "type": "string"
+        },
+        "valorproduto": {
+          "type": "string"
+        }
+      }
+    },
+    "ProdutoInput": {
+      "type": "object",
+      "properties": {
+        "nome_prod": {
+          "type": "string"
+        },
+        "descproduto": {
+          "type": "string"
+        },
+        "valorproduto": {
+          "type": "string"
+        }
+      },
+      "required": ["nome_prod", "descproduto", "valorproduto"]
+    }
+  }
+}
